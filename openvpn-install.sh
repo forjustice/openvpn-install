@@ -1093,7 +1093,7 @@ function newClient() {
 	elif [ "${SUDO_USER}" ]; then # if not, use SUDO_USER
 		homeDir="/home/${SUDO_USER}"
 	else # if not SUDO_USER, use /root
-		homeDir="/root/openvpn"
+		homeDir="/openvpn"
 	fi
 
 	# Determine if we use tls-auth or tls-crypt
@@ -1166,7 +1166,7 @@ function revokeClient() {
 	cp /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn/crl.pem
 	chmod 644 /etc/openvpn/crl.pem
 	find /home/ -maxdepth 2 -name "$CLIENT.ovpn" -delete
-	rm -f "/root/openvpn/$CLIENT.ovpn"
+	rm -f "/openvpn/$CLIENT.ovpn"
 	sed -i "/^$CLIENT,.*/d" /etc/openvpn/ipp.txt
 
 	echo ""
@@ -1268,7 +1268,7 @@ function removeOpenVPN() {
 
 		# Cleanup
 		find /home/ -maxdepth 2 -name "*.ovpn" -delete
-		find /root/openvpn -maxdepth 1 -name "*.ovpn" -delete
+		find /openvpn -maxdepth 1 -name "*.ovpn" -delete
 		rm -rf /etc/openvpn
 		rm -rf /usr/share/doc/openvpn*
 		rm -f /etc/sysctl.d/20-openvpn.conf
